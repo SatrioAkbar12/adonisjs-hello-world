@@ -17,7 +17,7 @@ export default class Pokemon extends BaseModel {
   declare description: string
 
   @column()
-  declare user_id: number
+  declare userId: number
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -25,8 +25,7 @@ export default class Pokemon extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
-  @belongsTo(() => User, {
-    localKey: 'user_id',
-  })
+  // Relationship
+  @belongsTo(() => User)
   declare user: BelongsTo<typeof User>
 }

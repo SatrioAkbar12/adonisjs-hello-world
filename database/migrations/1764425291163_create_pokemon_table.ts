@@ -9,9 +9,8 @@ export default class extends BaseSchema {
       table.string('name')
       table.string('type')
       table.text('description')
-      table.integer('user_id').unsigned().references('users.id').onDelete('SET NULL')
-      table.timestamp('created_at').notNullable()
-      table.timestamp('updated_at').nullable()
+      table.integer('user_id').unsigned().nullable().references('users.id').onDelete('SET NULL')
+      table.timestamps()
     })
   }
 

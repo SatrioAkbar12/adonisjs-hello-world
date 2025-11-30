@@ -29,7 +29,7 @@ export default class UsersController {
 
       return response.status(201).send({
         status: 'success',
-        message: 'Successfully create new user',
+        message: 'User created',
         data: user
       })
     }
@@ -104,5 +104,13 @@ export default class UsersController {
   /**
    * Delete record
    */
-  async destroy({ params }: HttpContext) {}
+  async destroy({ params, response }: HttpContext) {
+    const user = await User.findOrFail(params.id)
+    await user.delete()
+
+    return response.send({
+      status: 'success',
+      message: 'User deleted',
+    })
+  }
 }

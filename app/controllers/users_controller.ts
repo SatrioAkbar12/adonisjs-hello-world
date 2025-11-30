@@ -1,13 +1,25 @@
 import User from '#models/user'
 import { createUserValidator, updateUserValidator } from '#validators/user'
 import type { HttpContext } from '@adonisjs/core/http'
-import { messages } from '@vinejs/vine/defaults'
 
 export default class UsersController {
   /**
    * Display a list of resource
    */
-  async index({}: HttpContext) {}
+  async index({ request, response }: HttpContext) {
+    try {
+      const user = await User.query()
+        .orderBy('updated_at', 'desc')
+        .paginate(Number (request.input('page', 1)), Number (request.input('limit', 10)))
+
+      return response.ok(user.toJSON())
+    }
+    catch(error) {
+      return response.internalServerError({
+        message: error.message,
+      })
+    }
+  }
 
   /**
    * Display form to create a new record

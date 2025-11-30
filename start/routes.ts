@@ -10,6 +10,7 @@
 import SessionController from '#controllers/session_controller'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+import UsersController from '#controllers/users_controller'
 
 router.get('/', async () => {
   return {
@@ -26,3 +27,5 @@ router.get('/dashboard', async () => {
     message: 'You are authenticated.'
   }
 })
+
+router.resource('/users', UsersController).use(['index', 'show', 'update', 'destroy'], middleware.auth()).apiOnly()

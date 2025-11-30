@@ -22,11 +22,6 @@ export default class UsersController {
   }
 
   /**
-   * Display form to create a new record
-   */
-  async create({}: HttpContext) {}
-
-  /**
    * Handle form submission for the create action
    */
   async store({ request, response }: HttpContext) {
@@ -86,11 +81,6 @@ export default class UsersController {
       })
     }
   }
-
-  /**
-   * Edit individual record
-   */
-  async edit({ params }: HttpContext) {}
 
   /**
    * Handle form submission for the edit action

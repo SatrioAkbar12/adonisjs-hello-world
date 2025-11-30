@@ -51,7 +51,29 @@ export default class UsersController {
   /**
    * Show individual record
    */
-  async show({ params }: HttpContext) {}
+  async show({ params, response }: HttpContext) {
+    try {
+      const user = await User.findOrFail(params.id)
+
+      return response.send({
+        status: 'success',
+        data: user
+      })
+    }
+    catch (error) {
+      if(error.code === 'E_ROW_NOT_FOUND') {
+        return response.notFound({
+          status: 'error',
+          message: 'User not found',
+        })
+      }
+
+      return response.internalServerError({
+        status: 'error',
+        message: error.message
+      })
+    }
+  }
 
   /**
    * Edit individual record
